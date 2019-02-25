@@ -1,0 +1,35 @@
+def diversityScore():
+    import nltk
+    from nltk.corpus import stopwords
+    from nltk.tokenize import word_tokenize
+    from nltk.stem import PorterStemmer
+    import os
+    
+    counter = 0
+    for filename in os.listdir("data/scripts"):
+        if filename.endswith(".txt"):   
+            counter = counter + 1
+    divarray = [""]*counter
+    counter = 0
+    f = open("data/diversityscore.txt", "w")
+    f.close()
+    for filename in os.listdir("data/scripts"):
+        if filename.endswith(".txt"): 
+            file=open("data/scripts/"+filename, "r", encoding="utf8")
+            ps = PorterStemmer()
+            #example_sent = "This is a sample sentence, showing off the stop words filtration."
+            example_sent =file.read()
+            stop_words = set(stopwords.words('english'))
+            word_tokens = word_tokenize(example_sent)
+            #filtered_sentence = [w for w in word_tokens if not w in stop_words]
+            filtered_sentence = []
+            stems=[]
+            for w in word_tokens:
+                    stems.append(ps.stem(w))
+            stems_set=set(stems)
+            diversity=len(stems_set)/len(word_tokens)
+            temp = ("{:.4f}".format(diversity),filename)
+            print("{:.4f}".format(diversity),filename)
+            with open("data/diversityscore.txt", 'a') as divOut:
+                divOut.write(temp[0]+" "+temp[1]+"\n")
+            file.close()

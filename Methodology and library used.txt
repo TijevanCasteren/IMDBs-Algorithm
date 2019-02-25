@@ -1,0 +1,26 @@
+Methodology and library used
+
+Initial set of movie scripts was downloaded from https://figshare.com/projects/imsdb_movie_scripts/18907 which were fetched from imsdb.com (internet movie script database) as of January 2017. The files were unzipped to give 1092 movie scripts as plain .txt files. Containing movie titles file names were used as identifiers throughout the project.
+
+The major libraries used in the project were: 
+nltk - text processing and analysis. Was used to generate features for the regression models;
+imdbpy - a library specialized for data retrieval from imdb.com. It was used to get movie ratings served as our model response  and one additional feature, the number of ratings left under each movie;
+scikit-learn + numpy were for machine learning: they were used to build the regression models and perform predictions.
+time and datetime - used to measure the time spent processing several functions
+
+main.py
+Used to combine all the work into one user friendly package, from there the user has access to all the combiner, textProcessing and
+ml functions (called with combineIt textProcessing and ml respectively). The main loop runs untill the user quits (q or quit), the operations can be performed independently or all in one go, depending on the user's request.
+
+divscore.py
+
+
+combiner.py
+Using imdbpy, movies were found by their titles at imdb.com and their imdb identifiers were determined. Based on these ids and using another imdb database as a tsv file, ratings and number of votes were found and added to the dataset file.
+
+textedit.py
+First, some initial work with scripts was performed: lexical diversity was calculated. With nltk the movie scripts were split into sentences and than into words. Stemming of words was performed and than the ratio of original stems to the total number of words was taken as lexical text diversity. 
+This script also carries out the analysis of parts of speech + average sentence length. Both were performed using nltk. Frequences of each parts of speech occurences were reported as part of the total word count. All new features were added to the dataset.
+
+ml.py
+The final script 
